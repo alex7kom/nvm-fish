@@ -277,8 +277,7 @@ function nvm
                             rm -f "$tmptarball"; and \
                             mv "$tmpdir" "$NVM_DIR/$VERSION"
                         if test $status = 0
-                            #nvm use $VERSION
-                            echo 'Looks like installed'
+                            nvm use $VERSION
                             return
                         else
                             echo "Binary download failed, trying source." >&2
