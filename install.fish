@@ -32,7 +32,7 @@ else
 	end
 end
 
-set SOURCE_STR "test -s \$HOME/.nvm-fish/nvm.fish; and source \$HOME/.nvm-fish/nvm.fish"
+set SOURCE_STR "test -s \$HOME/.nvm-fish/nvm.fish; and . \$HOME/.nvm-fish/nvm.fish"
 
 if test -z "$PROFILE"; or not test -f "$PROFILE"
 	if test -z "$PROFILE"
