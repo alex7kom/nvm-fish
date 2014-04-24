@@ -14,11 +14,11 @@ First you'll need to make sure your system has a c++ compiler.  For OSX, XCode w
 
 To install you could use the [install script](https://github.com/Alex7Kom/nvm-fish/blob/master/install.fish) (requires Git) using cURL:
 
-    curl https://raw.github.com/Alex7Kom/nvm-fish/master/install.fish | fish
+    curl https://raw.githubusercontent.com/Alex7Kom/nvm-fish/master/install.fish | fish
 
 or Wget:
 
-    wget -qO- https://raw.github.com/Alex7Kom/nvm-fish/master/install.fish | fish
+    wget -qO- https://raw.githubusercontent.com/Alex7Kom/nvm-fish/master/install.fish | fish
 
 <sub>The script clones the nvm repository to `~/.nvm-fish` and adds the source line to your config (`~/.config/fish/config.fish`).</sub>
 
@@ -71,6 +71,11 @@ To restore your PATH, you can deactivate it.
 To set a default Node version to be used in any new shell, use the alias 'default':
 
     nvm alias default 0.10
+
+To use a mirror of the node binaries, set `$NVM_NODEJS_ORG_MIRROR`:
+
+    set NVM_NODEJS_ORG_MIRROR http://nodejs.org/dist
+    nvm install 0.10
 
 ## License
 
