@@ -637,4 +637,4 @@ function nvm
     end
 end
 
-nvm ls default >/dev/null; and nvm use default >/dev/null; or true
+test (nvm ls default) != ""; and nvm use default >/dev/null; or true
