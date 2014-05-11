@@ -150,18 +150,18 @@ function nvm_checksum
 end
 
 function nvm_print_versions
-    set -l VERSION
+    set -l VERSIONS $argv
     set -l FORMAT
     set -l CURRENT (nvm_version current)
-    echo "$argv[1]" | while read VERSION
-        if test "$VERSION" = "$CURRENT"
-            set FORMAT '\033[0;32m-> %9s\033[0m'
-        else if test -d "$NVM_DIR/$VERSION"
-            set FORMAT '\033[0;34m%12s\033[0m'
-        else
-            set FORMAT '%12s'
-        end
-        printf "$FORMAT\n" $VERSION
+    for VERSION in $VERSIONS
+      if test "$VERSION" = "$CURRENT"
+          set FORMAT '\033[0;32m-> %9s\033[0m'
+      else if test -d "$NVM_DIR/$VERSION"
+          set FORMAT '\033[0;34m%12s\033[0m'
+      else
+          set FORMAT '%12s'
+      end
+      printf "$FORMAT\n" $VERSION
     end
 end
 
