@@ -154,14 +154,14 @@ function nvm_print_versions
     set -l FORMAT
     set -l CURRENT (nvm_version current)
     for VERSION in $VERSIONS
-      if test "$VERSION" = "$CURRENT"
-          set FORMAT '\033[0;32m-> %9s\033[0m'
-      else if test -d "$NVM_DIR/$VERSION"
-          set FORMAT '\033[0;34m%12s\033[0m'
-      else
-          set FORMAT '%12s'
-      end
-      printf "$FORMAT\n" $VERSION
+        if test "$VERSION" = "$CURRENT"
+            set FORMAT '\033[0;32m-> %9s\033[0m'
+        else if test -d "$NVM_DIR/$VERSION"
+            set FORMAT '\033[0;34m%12s\033[0m'
+        else
+            set FORMAT '%12s'
+        end
+        printf "$FORMAT\n" $VERSION
     end
 end
 
