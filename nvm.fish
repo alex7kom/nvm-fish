@@ -21,11 +21,29 @@ if not test -d "$NVM_NODEJS_ORG_MIRROR"
     set NVM_NODEJS_ORG_MIRROR "http://nodejs.org/dist"
 end
 
+# Traverse up in directory tree to find containing folder
+function nvm_find_up
+    set -l path (pwd)
+    set -l file $argv[1]
+    while begin; test "$path" != ""; and not test -e "$path/$file"; end
+        set path (echo "$path" | sed -e 's/\/[^\/]*$//')
+    end
+    echo "$path"
+end
+
+function nvm_find_nvmrc
+    set -l dir (nvm_find_up ".nvmrc")
+    if test -e "$dir/.nvmrc"
+        echo "$dir/.nvmrc"
+    end
+end
+
 # Obtain nvm version from rc file
 function nvm_rc_version
-    if test -e .nvmrc
-        set NVM_RC_VERSION (cat .nvmrc | head -n 1)
-        echo "Found .nvmrc files with version <$NVM_RC_VERSION>"
+    set -l NVMRC_PATH (nvm_find_nvmrc)
+    if test -e "$NVMRC_PATH"
+        set NVM_RC_VERSION (cat "$NVMRC_PATH" | head -n 1)
+        echo "Found '$NVMRC_PATH' with version <$NVM_RC_VERSION>"
     end
 end
 
@@ -94,7 +112,7 @@ function nvm_ls
         set VERSIONS "$PATTERN"
     else
         set -l format (nvm_format_version $PATTERN)
-        set VERSIONS (find "$NVM_DIR/" -maxdepth 1 -type d -name "$format*" -exec basename '{}' ';' | sort -t. -u -k 1.2,1n -k 2,2n -k 3,3n)
+        set VERSIONS (find "$NVM_DIR/" -maxdepth 1 -type d -name "$format*" -exec basename '{}' ';' | sort -t. -u -k 1.2,1n -k 2,2n -k 3,3n | grep -v '^ *\.')
     end
 
     if test -z "$VERSIONS"
@@ -297,7 +315,13 @@ function nvm
 
             if test -d $NVM_DIR/$VERSION
                 echo $VERSION is already installed.
-                return
+                nvm use "$VERSION"
+                return $status
+            end
+
+            if test "$VERSION" = "N/A"
+                echo "Version '$provided_version' not found - try `nvm ls-remote` to browse available versions."
+                return 3
             end
 
             # skip binary install if no binary option specified.
@@ -519,7 +543,7 @@ function nvm
                 end
             end
 
-            provided_version $argv[2]
+            set provided_version $argv[2]
             if test -n "$provided_version"
                 set VERSION (nvm_version $provided_version)
                 if test "$VERSION" = "N/A"
@@ -551,7 +575,12 @@ function nvm
 
             echo "Running node $VERSION"
             set -l argv_count (count $argv)
-            eval $NVM_DIR/$VERSION/bin/node $argv[$cur..$argv_count]
+            set cur (math $cur + 1)
+            if test $argv_count -ge $cur
+                eval $NVM_DIR/$VERSION/bin/node $argv[$cur..$argv_count]
+            else
+                eval $NVM_DIR/$VERSION/bin/node
+            end
             set -g -x NODE_PATH $PREVIOUS_NODE_PATH
         case 'ls' 'list'
             if test (count $argv) -eq 1
@@ -632,7 +661,7 @@ function nvm
                 nvm_version $argv[2]
             end
         case '--version'
-            echo "nvm v0.3.0"
+            echo "nvm v0.7.0"
         case '*'
             nvm help
     end
