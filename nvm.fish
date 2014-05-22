@@ -60,7 +60,8 @@ function nvm_normalize_version
 end
 
 function nvm_format_version
-    echo "$argv[1]" | sed -e 's/^\([0-9]\)/v\1/g'
+    set -l PATTERN $argv[1]
+    echo "$PATTERN" | sed -e 's/^\([0-9]\)/v\1/g'
 end
 
 function nvm_binary_available
