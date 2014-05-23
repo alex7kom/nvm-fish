@@ -618,7 +618,7 @@ function nvm
                         echo "$ALIAS_BASE -> $DEST (-> $VERSION)"
                     end
                 end
-                return
+                return 0
             end
             if test "$argv[3]" = ""
                 rm -f "$NVM_DIR/alias/$argv[2]"
