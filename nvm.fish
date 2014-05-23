@@ -61,6 +61,7 @@ function nvm_version
     if test "$VERSION" = 'N/A'
         return
     end
+    return 0
 end
 
 function nvm_remote_version
@@ -71,6 +72,7 @@ function nvm_remote_version
     if test "$VERSION" = 'N/A'
         return
     end
+    return 0
 end
 
 function nvm_normalize_version
