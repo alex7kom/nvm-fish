@@ -295,7 +295,7 @@ function nvm
 
             set provided_version $argv[$cur]
             if test -z "$provided_version"
-                if $version_not_provided -ne 1 
+                if test $version_not_provided -ne 1 
                     nvm_rc_version
                 end
                 set provided_version "$NVM_RC_VERSION"
