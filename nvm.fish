@@ -610,7 +610,7 @@ function nvm
                     set -l ARG ''
                 end
 
-                for ALIAS in "$NVM_DIR/alias/$ARG"*
+                for ALIAS in (find "$NVM_DIR/alias" -maxdepth 1 -type f -name "$ARG"\*)
                     set -l DEST (cat $ALIAS)
                     set -l VERSION (nvm_version $DEST)
                     set -l ALIAS_BASE (basename $ALIAS)
