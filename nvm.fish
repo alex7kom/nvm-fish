@@ -98,7 +98,7 @@ function nvm_ls
     set -l GREP_OPTIONS ''
 
     if test "$PATTERN" = 'current';
-        if test (which node)
+        if test (which node 2>/dev/null)
             echo (node -v 2>/dev/null)
         end
         return
