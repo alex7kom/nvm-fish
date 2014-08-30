@@ -1,10 +1,10 @@
-# Node Version Manager for fish
+# Node Version Manager for fish 2.1.0+
 
 ## Important Note
 
 nvm-fish is a port of [nvm](https://github.com/creationix/nvm) for fish shell.
 Although it is fully functional, it should be considered very beta, so you use it on your own risk!
-Please report any bugs you encounter.
+Please report any bugs you encounter. Please always specify your OS and fish shell version when reporting bugs.
 
 ## Installation
 
