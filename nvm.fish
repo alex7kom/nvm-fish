@@ -18,7 +18,7 @@ end
 
 # Setup mirror location if not already set
 if not test -d "$NVM_NODEJS_ORG_MIRROR"
-    set NVM_NODEJS_ORG_MIRROR "http://nodejs.org/dist"
+    set NVM_NODEJS_ORG_MIRROR "https://nodejs.org/dist"
 end
 
 # Traverse up in directory tree to find containing folder
