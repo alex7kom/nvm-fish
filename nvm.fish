@@ -42,7 +42,7 @@ end
 function nvm_rc_version
     set -l NVMRC_PATH (nvm_find_nvmrc)
     if test -e "$NVMRC_PATH"
-        set NVM_RC_VERSION (cat "$NVMRC_PATH" | head -n 1)
+        set -g NVM_RC_VERSION (cat "$NVMRC_PATH" | head -n 1)
         echo "Found '$NVMRC_PATH' with version <$NVM_RC_VERSION>"
     end
 end
